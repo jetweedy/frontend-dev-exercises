@@ -1,17 +1,40 @@
 Vue.use(HighchartsVue.default)
 
+
+var groups = {
+  race:{
+    label:"Race"
+    ,
+    col:"race"
+  },
+  education:{
+    label:"Education Level"
+    ,
+    col:"education"
+  }  
+}
+
+function getTitleByGroup(group) {
+  return "Salary by " + groups[group].label;
+}
+function getSalaryDataByGroup(group) {
+  return [{
+              name: 'True',
+              data: [60, 40, 70]
+          }, {
+              name: 'False',
+              data: [40, 60, 30]
+          }];
+}
+
+
+var app;
 window.onload = () => {
-  var app = new Vue({
+  app = new Vue({
       el: "#highchart",
       data: () => {
           return {
-              title: '',
-              type: 'bar',
-              plotOptions: {
-                  series: {
-                      stacking: 'normal'
-                  }
-              },
+              title: getTitleByGroup('race'),
               series: [{
                     name: 'True',
                     data: [60, 40, 70]
@@ -31,13 +54,13 @@ window.onload = () => {
                     text: this.title
                 },
                 xAxis: {
-                    categories: ['Doctorate', 'Masters', 'Bachelors']
+                    categories: ['Other', 'Black', 'White']
                 },
                 yAxis: {
                     min: 0,
                     max: 100,
                     title: {
-                        text: 'Total fruit consumption'
+                        text: 'Compensation over $50k?'
                     },
                     labels: {
                       format: '{value}%'
