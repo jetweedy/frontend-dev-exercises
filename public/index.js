@@ -12,38 +12,47 @@ window.onload = () => {
                       stacking: 'normal'
                   }
               },
-              xAxis: {
-                  categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
-              },
-              yAxis: {
-                  min: 0,
-                  title: {
-                      text: 'Total fruit consumption'
-                  }
-              },                  
-              series: [
-                          {
-                            data: [{
-                                name: 'John',
-                                data: [5, 3, 4, 7, 2]
-                            }, {
-                                name: 'Jane',
-                                data: [2, 2, 3, 2, 1]
-                            }, {
-                                name: 'Joe',
-                                data: [3, 4, 4, 2, 5]
-                            }]
-                          },
-                        ],
+              series: [{
+                    name: 'True',
+                    data: [60, 40, 70]
+                }, {
+                    name: 'False',
+                    data: [40, 60, 30]
+                }],
           }
       },
       computed: {
           chartOptions() { 
               return {
-                      chart: {  type: "bar" },
-                      title: {  text: this.title  },
-                      series: this.series,
-                }
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: this.title
+                },
+                xAxis: {
+                    categories: ['Doctorate', 'Masters', 'Bachelors']
+                },
+                yAxis: {
+                    min: 0,
+                    max: 100,
+                    title: {
+                        text: 'Total fruit consumption'
+                    },
+                    labels: {
+                      format: '{value}%'
+                    }                    
+                },
+                legend: {
+                    reversed: true
+                },
+                plotOptions: {
+                    series: {
+                        stacking: 'normal'
+                    }
+                },
+                series: this.series
+            }
           },
       },
       template:`
