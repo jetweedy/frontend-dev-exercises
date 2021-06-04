@@ -14,9 +14,6 @@ var groups = {
   }  
 }
 
-function getTitleByGroup(group) {
-  return "Salary by " + groups[group].label;
-}
 function getSalaryDataByGroup(group) {
   return [{
               name: 'True',
@@ -34,12 +31,12 @@ window.onload = () => {
       el: "#highchart",
       data: () => {
           return {
-              title: getTitleByGroup('race'),
+              group: 'race',
               series: [{
-                    name: 'True',
+                    name: 'Over $50k ',
                     data: [60, 40, 70]
                 }, {
-                    name: 'False',
+                    name: 'Under $50k',
                     data: [40, 60, 30]
                 }],
           }
@@ -51,7 +48,7 @@ window.onload = () => {
                     type: 'bar'
                 },
                 title: {
-                    text: this.title
+                    text: "Salary Breakdown by " + groups[this.group].label
                 },
                 xAxis: {
                     categories: ['Other', 'Black', 'White']
@@ -60,7 +57,7 @@ window.onload = () => {
                     min: 0,
                     max: 100,
                     title: {
-                        text: 'Compensation over $50k?'
+                        text: ''
                     },
                     labels: {
                       format: '{value}%'
