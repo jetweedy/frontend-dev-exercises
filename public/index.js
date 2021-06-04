@@ -74,17 +74,8 @@ window.onload = () => {
                 series: this.series
             }
           },
-      },
-      template:`
-      <div>
-      <div class="title-row">
-              <span>Chart title:</span>
-              <input type="text" v-model="title">
-          </div>
-           
-          <highcharts :options="chartOptions" ></highcharts>
-      </div>
-      `
+      }
+//      , template:``
   })
 
 }
