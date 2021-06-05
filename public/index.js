@@ -5,47 +5,16 @@ var groups = {
   race:{
     label:"Race"
     ,
-    categories:["Black", "White", "Other"]
+    categories:[]
     ,
-    col:"race"
-    ,
-    series:[{
-        name: 'Over $50k ',
-        data: [30, 40, 50]
-    }, {
-        name: 'Under $50k',
-        data: [70, 60, 50]
-    }]
+    series:[]
   },
-  sex:{
-    label:"Sex"
-    ,
-    categories:["Black", "White", "Other"]
-    ,
-    col:"sex"
-    ,
-    series:[{
-        name: 'Over $50k ',
-        data: [30, 40, 50]
-    }, {
-        name: 'Under $50k',
-        data: [70, 60, 50]
-    }]
-  },
-  education:{
+  education_level:{
     label:"Education Level"
     ,
-    categories:["Doctorate", "Masters", "Bachelors", "High School", "Other"]
+    categories:[]
     ,
-    col:"education_level"
-    ,
-    series:[{
-        name: 'Over $50k ',
-        data: [70, 60, 50, 40, 30]
-    }, {
-        name: 'Under $50k',
-        data: [30, 40, 50, 60, 70]
-    }]
+    series:[]
   }
 }
 
@@ -60,56 +29,72 @@ function loadDataByGroup(group) {
 var app;
 window.onload = () => {
 
-  var byvar = document.querySelector("#byvar");
-  byvar.focus();
-  byvar.addEventListener("change", function() {
-    var group = this.value;
-    loadDataByGroup(group);
-  });
 
-  app = new Vue({
-      el: "#highchart",
-      data: () => {
-          return {
-              group: 'race',
-              series: [],
-          }
-      },
-      computed: {
-          chartOptions() { 
-              return {
-                chart: {
-                    type: 'bar'
+  axios.get("/data")
+      .then(response => {
+
+        for (var g in groups) {
+          groups[g].categories = response.data[g].categories;
+          groups[g].series = response.data[g].series;
+        }
+        console.log(groups);
+
+        var byvar = document.querySelector("#byvar");
+        byvar.focus();
+        byvar.addEventListener("change", function() {
+          var group = this.value;
+          loadDataByGroup(group);
+        });
+
+        app = new Vue({
+            el: "#highchart",
+            data: () => {
+                return {
+                    group: 'race',
+                    series: [],
+                }
+            },
+            computed: {
+                chartOptions() { 
+                    return {
+                      chart: {
+                          type: 'bar'
+                      },
+                      title: {
+                          text: "Salary Breakdown by " + groups[this.group].label
+                      },
+                      xAxis: {
+                          categories: groups[this.group].categories
+                      },
+                      yAxis: {
+                          min: 0,
+                          max: 100,
+                          title: {
+                              text: ''
+                          },
+                          labels: {
+                            format: '{value}%'
+                          }                    
+                      },
+                      legend: {
+                          reversed: true
+                      },
+                      plotOptions: {
+                          series: {
+                              stacking: 'normal'
+                          }
+                      },
+                      series: groups[this.group].series
+                  }
                 },
-                title: {
-                    text: "Salary Breakdown by " + groups[this.group].label
-                },
-                xAxis: {
-                    categories: ['Other', 'Black', 'White']
-                },
-                yAxis: {
-                    min: 0,
-                    max: 100,
-                    title: {
-                        text: ''
-                    },
-                    labels: {
-                      format: '{value}%'
-                    }                    
-                },
-                legend: {
-                    reversed: true
-                },
-                plotOptions: {
-                    series: {
-                        stacking: 'normal'
-                    }
-                },
-                series: groups[this.group].series
             }
-          },
-      }
-//      , template:``
-  })
+      //      , template:``
+        })
+
+      })
+      .catch(err => {
+        console.log("error", err);
+      })
+
 
 }

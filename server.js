@@ -32,32 +32,39 @@ const socks = require('ws').Server;
 
 var bycols = ["race","education_level"];
 function formatDataForCharts(rows) {
+	var cats = [];
+	var data = [[],[]];
 	var json = {};
 	for (var b in bycols) {
 		var col = bycols[b];
-		json[col] = {};
+		json[col] = {data:{}};
 		for (var r in rows) {
 			var val = rows[r][col];
 //			console.log(col, val);
-			if (typeof json[col][val] == "undefined") {
-				json[col][val] = {y:0, n:0};
+			if (typeof json[col].data[val] == "undefined") {
+				json[col].data[val] = {y:0, n:0};
 			}
 			if (rows[r].over_50k=="1") {
-				json[col][val].y++;
+				json[col].data[val].y++;
 			} else {
-				json[col][val].n++;
+				json[col].data[val].n++;
 			}
 		}
 	}
 	for (var c in json) {
-		for (var v in json[c]) {
-			var t = json[c][v].y + json[c][v].n;
-			json[c][v].yp = (json[c][v].y/t)*100;
-			json[c][v].np = (json[c][v].n/t)*100;
+		json[c].categories = [];
+		json[c].series = [{name:"Over $50k",data:[]}, {name:"Under $50k",data:[]}];
+		for (var v in json[c].data) {
+			var t = json[c].data[v].y + json[c].data[v].n;
+			var yp = (json[c].data[v].y/t)*100;
+			var np = (json[c].data[v].n/t)*100;
+			json[c].categories.push(v);
+			json[c].series[0].data.push(yp);
+			json[c].series[1].data.push(np);
 		}
 	}
-	console.log(json);
-	return rows;
+//	console.log(json);
+	return json;
 }
 
 //// Now create and start up a server instance with express, with a few specifications:
