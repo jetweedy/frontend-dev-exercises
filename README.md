@@ -1,3 +1,25 @@
+
+# Completion Notes (jetweedy)
+
+##Deployed on Heroku:
+
+https://rti-js-charts.herokuapp.com/
+
+## Install and Run
+
+```
+git clone https://github.com/jetweedy/frontend-dev-exercises.git
+cd frontend-dev-exercises
+npm install
+npm start
+```
+## Use
+
+Just select 'Education Level' or 'Race' from the drop-down to dynamically toggle between two formatted data sets displayed in a highcharts widget.
+
+
+-------------------------------
+
 ## RTI CDS Frontend Developer Exercise
 
 Welcome to the RTI Center for Data Science front-end developer exercise! This exercise is here to get you acquainted with a small sample of what we do and for us to get acquainted with your skills. It should take no more than a few hours of your time.
