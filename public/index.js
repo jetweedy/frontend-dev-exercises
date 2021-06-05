@@ -20,7 +20,6 @@ var groups = {
 
 function loadDataByGroup(group) {
   if (typeof groups[group] != "undefined") {
-    console.log("Switch to group: ", group);
     app.group = group;
   }
 }
@@ -28,30 +27,23 @@ function loadDataByGroup(group) {
 
 var app;
 window.onload = () => {
-
-
   axios.get("/data")
       .then(response => {
-
         for (var g in groups) {
           groups[g].categories = response.data[g].categories;
           groups[g].series = response.data[g].series;
         }
-        console.log(groups);
-
         var byvar = document.querySelector("#byvar");
         byvar.focus();
         byvar.addEventListener("change", function() {
           var group = this.value;
           loadDataByGroup(group);
         });
-
         app = new Vue({
             el: "#highchart",
             data: () => {
                 return {
-                    group: 'race',
-                    series: [],
+                    group: 'education_level',
                 }
             },
             computed: {
@@ -90,11 +82,8 @@ window.onload = () => {
             }
       //      , template:``
         })
-
       })
       .catch(err => {
         console.log("error", err);
       })
-
-
 }

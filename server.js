@@ -40,7 +40,6 @@ function formatDataForCharts(rows) {
 		json[col] = {data:{}};
 		for (var r in rows) {
 			var val = rows[r][col];
-//			console.log(col, val);
 			if (typeof json[col].data[val] == "undefined") {
 				json[col].data[val] = {y:0, n:0};
 			}
@@ -63,7 +62,6 @@ function formatDataForCharts(rows) {
 			json[c].series[1].data.push(np);
 		}
 	}
-//	console.log(json);
 	return json;
 }
 
@@ -83,7 +81,6 @@ const server = express()
 				json.push(row);
 			})
 			.on('end', () => {
-				console.log('CSV file successfully processed');
 				res.json(formatDataForCharts(json));
 			})
 			.on('error', (err) => {
