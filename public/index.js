@@ -1,44 +1,78 @@
 Vue.use(HighchartsVue.default)
 
-
+/// GOAL: Populate this with my data
 var groups = {
   race:{
     label:"Race"
     ,
+    categories:["Black", "White", "Other"]
+    ,
     col:"race"
+    ,
+    series:[{
+        name: 'Over $50k ',
+        data: [30, 40, 50]
+    }, {
+        name: 'Under $50k',
+        data: [70, 60, 50]
+    }]
+  },
+  sex:{
+    label:"Sex"
+    ,
+    categories:["Black", "White", "Other"]
+    ,
+    col:"sex"
+    ,
+    series:[{
+        name: 'Over $50k ',
+        data: [30, 40, 50]
+    }, {
+        name: 'Under $50k',
+        data: [70, 60, 50]
+    }]
   },
   education:{
     label:"Education Level"
     ,
-    col:"education"
-  }  
+    categories:["Doctorate", "Masters", "Bachelors", "High School", "Other"]
+    ,
+    col:"education_level"
+    ,
+    series:[{
+        name: 'Over $50k ',
+        data: [70, 60, 50, 40, 30]
+    }, {
+        name: 'Under $50k',
+        data: [30, 40, 50, 60, 70]
+    }]
+  }
 }
 
-function getSalaryDataByGroup(group) {
-  return [{
-              name: 'True',
-              data: [60, 40, 70]
-          }, {
-              name: 'False',
-              data: [40, 60, 30]
-          }];
+function loadDataByGroup(group) {
+  if (typeof groups[group] != "undefined") {
+    console.log("Switch to group: ", group);
+    app.group = group;
+  }
 }
 
 
 var app;
 window.onload = () => {
+
+  var byvar = document.querySelector("#byvar");
+  byvar.focus();
+  byvar.addEventListener("change", function() {
+    var group = this.value;
+    loadDataByGroup(group);
+  });
+
   app = new Vue({
       el: "#highchart",
       data: () => {
           return {
               group: 'race',
-              series: [{
-                    name: 'Over $50k ',
-                    data: [60, 40, 70]
-                }, {
-                    name: 'Under $50k',
-                    data: [40, 60, 30]
-                }],
+              series: [],
           }
       },
       computed: {
@@ -71,7 +105,7 @@ window.onload = () => {
                         stacking: 'normal'
                     }
                 },
-                series: this.series
+                series: groups[this.group].series
             }
           },
       }

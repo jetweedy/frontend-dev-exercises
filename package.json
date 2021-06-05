@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/jetweedy/frontend-dev-exercises#readme",
   "dependencies": {
+    "csv-parser": "^3.0.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "ws": "^7.4.6"

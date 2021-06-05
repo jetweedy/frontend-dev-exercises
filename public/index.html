@@ -6,10 +6,13 @@
 		<script src="/public/index.js"></script>
 	</head>
 	<body>
-		<div id="highchart">
 		<div>
-			<highcharts :options="chartOptions" ></highcharts>
+			<select id="byvar">
+				<option value=""></option>
+				<option value="education">Education</option>
+				<option value="race">Race</option>
+			</select>
 		</div>
-		</div>
+		<highcharts :options="chartOptions" id="highchart"></highcharts>
 	</body>
 </html>

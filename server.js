@@ -10,7 +10,8 @@ npm install ws
 
 //// Require the (native) path library for generating paths to files
 const path = require('path');
-
+const csv = require('csv-parser');
+const fs = require('fs');
 
 //// This line uses the dotenv library to make vars in a .env available (if present)
 //// For example, on Heroku, process.env.PORT will be set in the environment for you
@@ -29,12 +30,59 @@ const express = require('express');
 const socks = require('ws').Server;
 
 
+var bycols = ["race","education_level"];
+function formatDataForCharts(rows) {
+	var json = {};
+	for (var b in bycols) {
+		var col = bycols[b];
+		json[col] = {};
+		for (var r in rows) {
+			var val = rows[r][col];
+//			console.log(col, val);
+			if (typeof json[col][val] == "undefined") {
+				json[col][val] = {y:0, n:0};
+			}
+			if (rows[r].over_50k=="1") {
+				json[col][val].y++;
+			} else {
+				json[col][val].n++;
+			}
+		}
+	}
+	for (var c in json) {
+		for (var v in json[c]) {
+			var t = json[c][v].y + json[c][v].n;
+			json[c][v].yp = (json[c][v].y/t)*100;
+			json[c][v].np = (json[c][v].n/t)*100;
+		}
+	}
+	console.log(json);
+	return rows;
+}
+
 //// Now create and start up a server instance with express, with a few specifications:
 const server = express()
 	//// Specify a 'get' route for the homepage:
 	.get('/', function(req, res){
 		//// We'll just be serving up the index.html that's in the 'public' folder
 		res.sendFile(path.join(__dirname, 'public/index.html'));
+	})
+	.get('/data', function(req, res){
+		//// We'll just be serving up the index.html that's in the 'public' folder
+		var json = [];
+		fs.createReadStream('census.csv')
+			.pipe(csv())
+			.on('data', (row) => {
+				json.push(row);
+			})
+			.on('end', () => {
+				console.log('CSV file successfully processed');
+				res.json(formatDataForCharts(json));
+			})
+			.on('error', (err) => {
+				console.log(err);
+				res.json(err);
+			})
 	})
 	//// We'll also use the /public directory as a static folder
 	//// Anything that goes to /public/whatever. will just serve up whatever.file
