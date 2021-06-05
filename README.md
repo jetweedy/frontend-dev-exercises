@@ -19,6 +19,8 @@ Just select 'Education Level' or 'Race' from the drop-down to dynamically toggle
 
 
 -------------------------------
+-------------------------------
+-------------------------------
 
 ## RTI CDS Frontend Developer Exercise
 
