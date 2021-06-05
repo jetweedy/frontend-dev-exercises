@@ -20,6 +20,9 @@ Just select 'Education Level' or 'Race' from the drop-down to dynamically toggle
 
 ## Helpful resources:
 
+https://www.highcharts.com/demo/bar-stacked
+
+https://www.manejandodatos.es/2019/07/using-highcharts-vue-js/
 
 
 -------------------------------
