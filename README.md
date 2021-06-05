@@ -1,7 +1,7 @@
 
 # Completion Notes (jetweedy)
 
-##Deployed on Heroku:
+## Deployed on Heroku:
 
 https://rti-js-charts.herokuapp.com/
 
