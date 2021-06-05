@@ -5,7 +5,7 @@
 
 https://rti-js-charts.herokuapp.com/
 
-## Install and Run
+## Installing and Running it
 
 ```
 git clone https://github.com/jetweedy/frontend-dev-exercises.git
@@ -13,9 +13,16 @@ cd frontend-dev-exercises
 npm install
 npm start
 ```
-## Use
+## Using it:
 
 Just select 'Education Level' or 'Race' from the drop-down to dynamically toggle between two formatted data sets displayed in a highcharts widget.
+
+
+## Helpful resources:
+
+https://www.highcharts.com/demo/bar-stacked
+https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/bar-stacked
+https://www.manejandodatos.es/2019/07/using-highcharts-vue-js/
 
 
 -------------------------------
