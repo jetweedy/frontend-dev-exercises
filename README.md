@@ -11,8 +11,21 @@ https://rti-js-charts.herokuapp.com/
 git clone https://github.com/jetweedy/frontend-dev-exercises.git
 cd frontend-dev-exercises
 npm install
+```
+
+To run the version that grabs the CSV using node/express and serves it up (presuming a potentially dynamic csv that could have changed, for example):
+
+```
 npm start
 ```
+
+To build and run a version that webpacks the csv right into the data for static loading without the ajaxy call, you can webpack and run an alt version:
+
+```
+npm run webpack
+npm run start-webpacked
+```
+
 ## Using it:
 
 Just select 'Education Level' or 'Race' from the drop-down to dynamically toggle between two formatted data sets displayed in a highcharts widget.

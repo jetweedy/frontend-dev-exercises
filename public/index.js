@@ -1,6 +1,5 @@
 Vue.use(HighchartsVue.default)
 
-/// GOAL: Populate this with my data
 var groups = {
   race:{
     label:"Race"

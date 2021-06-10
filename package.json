@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "start-webpacked": "node server-webpacked.js",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -22,5 +24,10 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "ws": "^7.4.6"
+  },
+  "devDependencies": {
+    "csv-loader": "^3.0.3",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2"
   }
 }
