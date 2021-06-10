@@ -27,7 +27,6 @@ const express = require('express');
 
 var bycols = ["race","education_level"];
 function formatDataForCharts(rows) {
-	var cats = [];
 	var data = [[],[]];
 	var json = {};
 	bycols.forEach((col) => {
