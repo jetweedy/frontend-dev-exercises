@@ -4,7 +4,6 @@
 npm init -y
 npm install dotenv
 npm install express
-npm install ws
 */
 
 //// Require the (native) path library for generating paths to files
