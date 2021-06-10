@@ -7,7 +7,6 @@ npm install express
 npm install ws
 */
 
-
 //// Require the (native) path library for generating paths to files
 const path = require('path');
 const csv = require('csv-parser');
@@ -25,31 +24,26 @@ const PORT = process.env.PORT || 3000;
 //// Routing basically tells your server how to handle specific URL requests
 //// 	and with various parameters included (like ?a=1&b=yes, stuff like that)
 const express = require('express');
-//// Create a reference to a socket server created by leveraging the 'ws' websockets library
-//// This socket server will listen for browser connections and allow you to broadcast messages to them
-const socks = require('ws').Server;
-
 
 var bycols = ["race","education_level"];
 function formatDataForCharts(rows) {
 	var cats = [];
 	var data = [[],[]];
 	var json = {};
-	for (var b in bycols) {
-		var col = bycols[b];
+	bycols.forEach((col) => {
 		json[col] = {data:{}};
-		for (var r in rows) {
-			var val = rows[r][col];
+		rows.forEach((row) => {
+			var val = row[col];
 			if (typeof json[col].data[val] == "undefined") {
 				json[col].data[val] = {y:0, n:0};
 			}
-			if (rows[r].over_50k=="1") {
+			if (row.over_50k=="1") {
 				json[col].data[val].y++;
 			} else {
 				json[col].data[val].n++;
 			}
-		}
-	}
+		});
+	});
 	for (var c in json) {
 		json[c].categories = [];
 		json[c].series = [{name:"Over $50k",data:[]}, {name:"Under $50k",data:[]}];
